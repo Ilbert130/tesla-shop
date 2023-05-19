@@ -1,7 +1,27 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './products/products.module';
 
 @Module({
-  imports: [],
+  imports: [
+    //configurando variables de ambiente
+    ConfigModule.forRoot(),
+
+    //config database
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      database: process.env.DB_NAME,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      autoLoadEntities: true,
+      synchronize: true
+    }),
+
+    ProductsModule,
+  ],
   controllers: [],
   providers: [],
 })
