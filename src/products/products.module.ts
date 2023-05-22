@@ -8,7 +8,7 @@ import { Product } from './entities/product.entity';
   controllers: [ProductsController],
   providers: [ProductsService],
   imports: [
-    TypeOrmModule.forFeature([Product])
+    TypeOrmModule.forFeature([Product]) //De esta manera importamos nuestra entidad
   ]
 })
 export class ProductsModule {}

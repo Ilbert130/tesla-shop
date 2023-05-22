@@ -13,10 +13,10 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,              //data que viene en el dto
       forbidNonWhitelisted: true,
-      transform: true,              //Para convertir los parametro a numero si deberian ser numeros para agregarlo en el dto
-      transformOptions: {
-        enableImplicitConversion: true
-      }
+      // transform: true,              //Para convertir los parametro a numero si deberian ser numeros para agregarlo en el dto
+      // transformOptions: {
+      //   enableImplicitConversion: true
+      // }
     })
   );
 
