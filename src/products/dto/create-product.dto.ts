@@ -32,4 +32,14 @@ export class CreateProductDto {
     //Su valor tiene que estar dentro de este arreglo. Ser uno de estos
     @IsIn(['men','women','kid','unisex'])
     gender:string;
+
+    @IsString({each:true})          //Cada elemento del arreglo
+    @IsArray()
+    @IsOptional()
+    tags:string[];
+
+    @IsString({each:true})          //Cada elemento del arreglo
+    @IsArray()
+    @IsOptional()
+    images?:string[];
 }
