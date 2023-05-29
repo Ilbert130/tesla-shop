@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInt
 import { FilesService } from './files.service';
 import multer, { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { fileFilter } from './helpers/fileFilter.helper';
+import { fileFilter } from './helpers/fileFilter.helper copy';
 import { fileNamer } from './helpers/fileNamer.helper';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';

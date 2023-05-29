@@ -6,12 +6,19 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { EnvConfiguration } from './config/app.config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     //configurando variables de ambiente
     ConfigModule.forRoot({
       load: [EnvConfiguration]
+    }),
+
+    //Expedir contenido estico
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname,'..','public'),
     }),
 
     //config database
