@@ -1,7 +1,7 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductImage } from "./product-image.entity";
 
-@Entity()
+@Entity({name: 'products'})         //Cambiando el nombre
 export class Product {
 
     //Estableciendo la llave primaria

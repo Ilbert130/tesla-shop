@@ -11,6 +11,7 @@ import { ProductImage } from './entities/product-image.entity';
 @Injectable()
 export class ProductsService {
 
+  //Se le pasa el nombre de la clase en el controlador
   private readonly logger = new Logger('ProductsService');          //Propiedad para mostrar los logs como lo hace nest en la consola
 
   constructor(
@@ -170,7 +171,7 @@ export class ProductsService {
     return produtRemove;
   }
 
-  
+  //To handle exceptions
   private handleDBExceptions(error:any) {
     //Esto es una mejora manera de manejar los errores
     if(error.code === '23505'){
@@ -181,6 +182,7 @@ export class ProductsService {
     throw new InternalServerErrorException('Unexpected error, check server log!');
   }
 
+  //to delete all the products in the tablets image and product
   async deleteAllProducts() {
     const query = this.productRepository.createQueryBuilder('product');
 
