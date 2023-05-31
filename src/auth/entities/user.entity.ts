@@ -11,7 +11,10 @@ export class User {
     })
     email:string;
 
-    @Column('text')
+    @Column('text', {
+                            //Indicates if column is always selected by QueryBuilder and find operations. Default value is "true".
+        select:false        //De no ser asi, no devuelve esta propiedad cuando usamos find y querybuilder
+    })
     password: string;
 
     @Column('text')
