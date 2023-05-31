@@ -1,26 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Injectable, BadRequestException, InternalServerErrorException } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
+import * as bcrypt from "bcrypt";             //Opteniendo todo
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>
+  ){}
+
+  async create(createUserDto: CreateUserDto) {
+    try {
+
+      const {password, ...userData} =createUserDto;
+      const user = this.userRepository.create({
+        ...userData,
+        password: bcrypt.hashSync(password, 10) //Le pasamos la password y la salt que sera generada con el numero indicado
+      });
+
+      await this.userRepository.save(user);
+      delete user.password; //Asi eliminamos una propiedad de un objeto
+
+      return user;
+
+    } catch (error) {
+      this.handleDbErrors(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  private handleDbErrors(error:any):never {
+    
+    if(error.code === '23505'){
+      throw new BadRequestException(error.detail);
+    }
+
+    throw new InternalServerErrorException('Please check server logs')
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
 }
