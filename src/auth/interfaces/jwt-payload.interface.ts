@@ -1,7 +1,7 @@
 
 
-
+//Payload del jwt
 export interface JwtPayload {
-    email: string;
     //TODO: agregar todo lo que quieres guardar
+    id: string;
 }
